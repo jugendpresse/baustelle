@@ -12,7 +12,7 @@ docker run --detach \
   --name motiontool_maintenance \
   --restart unless-stopped \
   --label traefik.frontend.rule="Host:motiontool.jugendpresse.de" \
-  --label traefik.frontend.entryPoints=http \
+  --label traefik.frontend.entryPoints=http,https \
   --label traefik.docker.network=proxy \
   --label traefik.backend="Wartungsseite" \
   --label traefik.port=80 \
