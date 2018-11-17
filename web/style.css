@@ -1,0 +1,10 @@
+.bodybg {
+    background-image: linear-gradient(to bottom, rgba(42, 85, 171, .75), rgba(42, 85, 171, .75)), url(bg.svg);
+    background-position: center center, center center;
+    background-size: cover, cover;
+    background-repeat: repeat, repeat;
+}
+
+.info {
+    background-color: #009367;
+}
