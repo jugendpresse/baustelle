@@ -4,12 +4,18 @@
 
 Dieses Repository enthält alle Informationen, um schnell und unkompliziert eine Wartungsseite als Ersatz für eine andere Website in einer Docker-Umgebung hochzuziehen.
 
-Angenommen, es läuft ein [Antragsgrün / motion.tool](https://github.com/jugendpresse/docker-antragsgruen/) Docker-Container `motiontool` mit der URL `https://motiontool.jugendpresse.de` hinter einem Træfik-Reverseproxy, kann dieser Befehl die Standard-Wartungsseite als Ersatz für den aktuellen Container starten:
+Angenommen, es läuft ein [Antragsgrün / motion.tool](https://github.com/jugendpresse/docker-antragsgruen/) Docker-Container `motiontool` mit der URL `https://motiontool.jugendpresse.de` hinter einem Træfik-Reverseproxy im Docker-Netzwerk `proxy`, kann dieser Befehl die Standard-Wartungsseite als Ersatz für den aktuellen Container starten:
 
 ```sh
-docker stop `motiontool`
-docker run -d \
-
+docker stop motiontool
+docker run --detach \
+  --name motiontool_maintenance \
+  --restart unless-stopped \
+  --label traefik.frontend.rule="Host:motiontool.jugendpresse.de" \
+  --label traefik.frontend.entryPoints=http \
+  --label traefik.docker.network=proxy \
+  --label traefik.backend="Wartungsseite" \
+  --label traefik.port=80 \
   jugendpresse/baustelle
 ```
 
