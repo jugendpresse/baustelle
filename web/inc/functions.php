@@ -16,70 +16,35 @@ function isSNE ($var) {
     return false;
 }
 
-function getJsonFile ($name): array {
-    global $base;
-    return [
-        $name => json_decode(file_get_contents($base . 'json/' . $name . '.json'), true)
-    ];
+/**
+ * trim value if is a string
+ * @param  mixed $var value to be checked
+ * @return mixed
+ */
+function trim_if_string ($var) {
+    return is_string($var) ? trim($var) : $var;
 }
 
-function preparePhoneSettings ($new, &$settings) {
-    foreach ($new as $tag => $data) {
-        if (!isset($data['attributes']) or !isset($data['attributes']['perm'])) {
-            $data['attributes']['perm'] = getenv('DEF_PERM_ATTR', '&');
-        }
-        $settings[$tag] = $data;
-    }
+/**
+ * @param string $value to convert to CamelCase
+ *
+ * @return string
+ */
+function camelize (string $value) {
+    $chunks    = explode(' ', $value);
+    $ucfirsted = array_map(function($s) { return ucfirst($s); }, $chunks);
+    return lcfirst(implode('', $ucfirsted));
 }
 
-function prepareActions ($new, $mac, &$settings) {
-    global $twig;
-    $actions = [];
-    foreach ($new as $tag => $setting) {
-        $value = '';
-        if (isSNE($setting['action']) and isSNE($setting['state'])) {
-            $setting['mac'] = $mac;
-            try {
-                $twig_template = $twig->createTemplate(getenv('ACTION_TRACKTOOL', 'http://phonestate.local') . getenv('ACTION_URL', '/api/{{ mac }}/{{ action }}/{{ state }}'));
-                $value = $twig_template->render($setting);
-            } catch (Throwable $e) {
-                if (getenv('DEBUG', false)) {
-                    var_dump ($e);
-                }
-            }
-        }
-        $actions[$tag] = compact('value');
-    }
-    preparePhoneSettings($actions, $settings);
+function startsWith($haystack, $needle) {
+     $length = strlen($needle);
+     return (substr($haystack, 0, $length) === $needle);
 }
 
-function prepareIDX ($idx, $data, &$settings, $force = false, $twigVars = []) {
-    global $twig;
-    $idxs = [];
-    $keywords = ['value', 'attributes', 'tag'];
-    foreach ($data as $tag => $value) {
-        $ident = $tag . '_IDX' . $idx;
-        if (!isset($settings[$ident]) or $force) {
-            foreach ($value as $key => &$kvalue) {
-                if (!empty($twigVars)) {
-                    try {
-                        $kvalue_tpl = $twig->createTemplate($kvalue);
-                        $kvalue = $kvalue_tpl->render($twigVars);
-                    } catch (Throwable $e) {
-                        if (getenv('DEBUG', false)) {
-                            var_dump ($e);
-                        }
-                    }
-                }
-                if (!in_array($key, $keywords)) {
-                    $value['attributes'][$key] = $kvalue;
-                    unset($value[$key]);
-                }
-            }
-            $idxs[$ident] = $value;
-            $idxs[$ident]['tag'] = $tag;
-            $idxs[$ident]['attributes']['idx'] = $idx;
-        }
+function endsWith($haystack, $needle) {
+    $length = strlen($needle);
+    if ($length == 0) {
+        return true;
     }
-    preparePhoneSettings($idxs, $settings);
+    return (substr($haystack, -$length) === $needle);
 }

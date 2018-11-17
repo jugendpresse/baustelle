@@ -1,6 +1,6 @@
 # Baustelle
 
-![Baustelle](./web/beinehoch.svg)
+![Baustelle](https://raw.githubusercontent.com/jugendpresse/baustelle/master/web/beinehoch.svg =150x)
 
 Dieses Repository enthält alle Informationen, um schnell und unkompliziert eine Wartungsseite als Ersatz für eine andere Website in einer Docker-Umgebung hochzuziehen.
 
@@ -31,10 +31,3 @@ Folgende Umgebungsvariablen (zusätzlich zu den [Apache-Variablen](https://githu
 | `APPEND`              | no                  | `NAN`                 | HTML-code to be appended to the HTML `<body>` |
 
 Umgebungsvariablen können entweder dem Container im `docker run` Befehl mit dem Parameter `-e` übergeben – oder aber in einer `.env` Datei definiert werden, die dann im Container als Mount in den Pfad `/var/www/html/.env` verfügbar gemacht werden muss. Wird eine `.env`-Datei definiert, müssen die in der Tabelle markierten Umgebungsvariablen definiert werden, da anderenfalls die Wartungsseite (fast) leer dargestellt wird.
-
-
-<style>
-	img[alt=Baustelle] {
-		width: 150px;
-	}
-</style>
