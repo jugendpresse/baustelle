@@ -1,9 +1,6 @@
 FROM jugendpresse/apache:php-7.2
 MAINTAINER Martin Winter
 
-# environmental variables
-ENV TYPEOFDOWNTIME Baustelle
-
 # expose ports
 EXPOSE 80
 EXPOSE 443
