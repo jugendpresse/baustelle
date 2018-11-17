@@ -9,21 +9,35 @@
         {{ env('HEAD') }}
     </head>
 
-    <body class="h-100">
-        {{ env('PREPEND') }}
-        <div class="py-5 text-center text-white h-100 align-items-center d-flex bodybg">
-            <div class="container py-5 info">
+    <body class="h-100 bodybg">
+        <div class="py-5 d-flex flex-wrap h-100 mh100">
+            <div class="container py-5">
                 <div class="row">
-                    <div class="mx-auto col-lg-8 col-md-10">
-                        <h1 class="display-3 mb-4">{{ env('REASON') | default('Baustelle') }}</h1>
-                        <h2 class="mb-4">{{ env('EXPLAIN') | default('Hier wird alles besser ...') }}</h2>
-                        <p class="lead mb-5">{{ env('PARAGRAPH') | default('... das haben wir uns zumindest vorgenommen; aus diesem Grund finden gerade Wartungsarbeiten statt.<br/><br/>Also: Beine hoch und mal wieder eine Zeitung lesen &ndash; wir sind bald wieder da =)') }}</p>
-                        <img src="{{ data.assetpath }}beinehoch.svg" width="200px"/>
+                    <div class="col-lg-10 col-md-12 mx-auto text-center text-white">
+                        {{ env('PREPEND') }}
+                        <div class="row">
+                            <div class="mx-auto info p-5 col-12">
+                                <h1 class="display-3 mb-4">{{ env('REASON') | default('Baustelle') }}</h1>
+                                <h2 class="mb-4">{{ env('EXPLAIN') | default('Hier wird alles besser ...') }}</h2>
+                                <p class="lead mb-5">{{ env('PARAGRAPH') | default('... das haben wir uns zumindest vorgenommen; aus diesem Grund finden gerade Wartungsarbeiten statt.<br/><br/>Also: Beine hoch und mal wieder eine Zeitung lesen &ndash; wir sind bald wieder da =)') }}</p>
+                                <img src="{{ data.assetpath }}beinehoch.svg" width="200px"/>
+                            </div>
+                        </div>
+                        {% if env('SHOWSTARTUPTIME') is not empty and env('SHOWSTARTUPTIME') != 'false' %}
+                            <div class="row">
+                                <div class="mx-auto white pl-5 pr-5 pt-3 pb-3 col-12 text-left">
+                                    <p>Wartungsmodus gestartet am {{ env(DOWNTIME) | date("d.m.Y", "Europe/Berlin") }} um {{ env(DOWNTIME) | date("H:i", "Europe/Berlin") }}.</p>
+                                    {% if env('SHOWRESOLUTIONHINT') is not empty %}
+                                        <p>{{ env('SHOWRESOLUTIONHINT') }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {{ env('APPEND') }}
                     </div>
                 </div>
             </div>
         </div>
-        {{ env('APPEND') }}
     </body>
 {% endautoescape %}
 </html>

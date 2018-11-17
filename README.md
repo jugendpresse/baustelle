@@ -26,6 +26,8 @@ Folgende Umgebungsvariablen (zusätzlich zu den [Apache-Variablen](https://githu
 | `REASON`              | Baustelle             | |
 | `EXPLAIN`             | Hier wird alles besser ... | |
 | `PARAGRAPH`           | ... das haben wir uns zumindest vorgenommen; aus diesem Grund finden gerade Wartungsarbeiten statt.<br/><br/>Also: Beine hoch und mal wieder eine Zeitung lesen &ndash; wir sind bald wieder da =) | |
+| `SHOWSTARTUPTIME`     | `false`               | if `true` or equivalent the startuptime of the container will be shown on the website for visitors to be announced when downtime started |
+| `SHOWRESOLUTIONHINT`  | `NAN`                 | string – i.e. date and time – to announce the users about when the resolution should be ready and they could try to access the original website |
 | `HEAD`                | `NAN`                 | HTML-code to be appended to the HTML `<head>` |
 | `PREPEND`             | `NAN`                 | HTML-code to be prepended to the HTML `<body>` |
 | `APPEND`              | `NAN`                 | HTML-code to be appended to the HTML `<body>` |
