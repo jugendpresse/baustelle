@@ -1,0 +1,10 @@
+{
+    "name": "jugendpresse/baustelle",
+    "description": "Baustellenwebsite der Jugendpresse Deutschland",
+    "type": "project",
+    "require": {
+        "vlucas/phpdotenv": "^2.5",
+        "twig/twig": "^2.5",
+        "twig/extensions": "^1.5"
+    }
+}
