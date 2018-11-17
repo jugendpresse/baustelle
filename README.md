@@ -1,6 +1,6 @@
 # Baustelle
 
-![Baustelle](https://raw.githubusercontent.com/jugendpresse/baustelle/master/web/beinehoch.svg =150x)
+<img src="https://raw.githubusercontent.com/jugendpresse/baustelle/master/web/beinehoch.svg?sanitize=true" alt="Baustelle" width="250px" />
 
 Dieses Repository enthält alle Informationen, um schnell und unkompliziert eine Wartungsseite als Ersatz für eine andere Website in einer Docker-Umgebung hochzuziehen.
 
